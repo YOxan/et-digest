@@ -26,13 +26,21 @@ jobs:
       - name: Build
         run: hugo --minify
 
-      - name: Configure VK S3 Cloud Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Install AWS CLI
+        uses: unfor19/install-aws-cli-action@v1.0.3
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ru-msk
-          audience: bizmrg.com
+          version: 2 # default
+          verbose: false # default
+          arch: amd64 # allowed values: amd64, arm64
+          rootdir: "" # defaults to "PWD"
+          workdir: "" # defaults to "PWD/unfor19-awscli"
+
+      - name: Configure VK S3 Cloud Credentials
+        run: aws configure
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ru-msk
 
       - name: Deploy static site to S3 bucket
         run: aws s3 sync ./public/ s3://site-et-digest --delete --endpoint-url http://ib.bizmrg.com
