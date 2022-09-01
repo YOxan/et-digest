@@ -42,5 +42,12 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ru-msk
 
+      - name: Echo everything
+        run: echo "Key $AWS_ACCESS_KEY_ID. Secret $AWS_SECRET_ACCESS_KEY. Region $AWS_DEFAULT_REGION"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ru-msk
+
       - name: Deploy static site to S3 bucket
         run: aws s3 sync ./public/ s3://site-et-digest --delete --endpoint-url http://ib.bizmrg.com
