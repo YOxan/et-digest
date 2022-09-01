@@ -32,6 +32,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ru-msk
+          audience: bizmrg.com
 
       - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./public/ s3://site-et-digest --delete --endpoint-url http://hb.bizmrg.com
+        run: aws s3 sync ./public/ s3://site-et-digest --delete --endpoint-url http://ib.bizmrg.com
