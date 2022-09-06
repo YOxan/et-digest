@@ -1,6 +1,8 @@
 name: Build hugo
 
 on:
+  push:
+    - master
   pull_request:
     branches:
       - master
@@ -16,7 +18,7 @@ permissions:
 
 jobs:
   deploy:
-    if: github.event.pull_request.merged == true
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.merged == true  }}
     runs-on: ubuntu-22.04
     environment:
       name: github-pages
