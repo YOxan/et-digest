@@ -31,4 +31,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   call-hugo:
-    uses: YOxan/et-digest/.github/workflows/hugo.yaml@main
+    uses: YOxan/et-digest/.github/workflows/hugo.yaml@master
