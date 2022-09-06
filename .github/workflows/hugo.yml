@@ -1,9 +1,12 @@
 name: Build hugo
 
 on:
-  push:
+  pull_request:
     branches:
-      - master # Set a branch to deploy
+      - master
+    types: [closed]
+
+   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -13,6 +16,7 @@ permissions:
 
 jobs:
   deploy:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-22.04
     environment:
       name: github-pages
