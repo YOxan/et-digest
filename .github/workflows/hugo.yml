@@ -26,25 +26,25 @@ jobs:
       - name: Build
         run: hugo --minify
 
-      - name: Install AWS CLI
-        uses: unfor19/install-aws-cli-action@v1.0.3
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/master'
         with:
-          version: 2 # default
-          verbose: false # default
-          arch: amd64 # allowed values: amd64, arm64
-          rootdir: "" # defaults to "PWD"
-          workdir: "" # defaults to "PWD/unfor19-awscli"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
 
-      - name: Echo everything
-        run: echo "Key $AWS_ACCESS_KEY_ID. Secret $AWS_SECRET_ACCESS_KEY. Region $AWS_DEFAULT_REGION"
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ru-msk
+      # - name: Install AWS CLI
+      #   uses: unfor19/install-aws-cli-action@v1.0.3
+      #   with:
+      #     version: 2 # default
+      #     verbose: false # default
+      #     arch: amd64 # allowed values: amd64, arm64
+      #     rootdir: "" # defaults to "PWD"
+      #     workdir: "" # defaults to "PWD/unfor19-awscli"
 
-      - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./public/ s3://site-et-digest --delete --endpoint-url http://ib.bizmrg.com
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ru-msk
+      # - name: Deploy static site to S3 bucket
+      #   run: aws s3 sync ./public/ s3://site-et-digest --delete --endpoint-url http://ib.bizmrg.com
+      #   env:
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     AWS_DEFAULT_REGION: ru-msk
