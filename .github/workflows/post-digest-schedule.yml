@@ -8,7 +8,7 @@ on:
       - synchronize
   schedule:
     # https://crontab.guru/every-hour
-    - cron: "0 * * * *"
+    - cron: "0/10 * * * *"
 
   workflow_dispatch:
 
@@ -29,3 +29,6 @@ jobs:
           automerge_fail_label: "merge-schedule-failed"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  call-hugo:
+    uses: YOxan/et-digest/.github/workflows/hugo.yaml@main
