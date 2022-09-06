@@ -10,6 +10,8 @@ on:
     # https://crontab.guru/every-hour
     - cron: "0/10 * * * *"
 
+  workflow_dispatch:
+
 jobs:
   merge_schedule:
     runs-on: ubuntu-latest
